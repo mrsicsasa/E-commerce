@@ -1,22 +1,26 @@
+import "package:e_commerce/features/authentication/controllers/onboarding_controller.dart";
+import "package:e_commerce/features/authentication/screens/onBoarding/widgets/onboarding_dot_navigation.dart";
+import "package:e_commerce/features/authentication/screens/onBoarding/widgets/onboarding_next_button.dart";
 import "package:e_commerce/features/authentication/screens/onBoarding/widgets/onboarding_page.dart";
 import "package:e_commerce/features/authentication/screens/onBoarding/widgets/onboarding_skip.dart";
 import "package:e_commerce/utils/constants/image_strings.dart";
-import "package:e_commerce/utils/constants/sizes.dart";
 import "package:e_commerce/utils/constants/text_strings.dart";
-import "package:e_commerce/utils/device/device_utility.dart";
-import "package:e_commerce/utils/helpers/helper_functions.dart";
 import "package:flutter/material.dart";
+import "package:get/get.dart";
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(OnboardingController());
     return Scaffold(
       body: Stack(
         children: [
           /// Horizontal Scrollable Pages
           PageView(
+            controller: controller.pageController,
+            onPageChanged: controller.updatePageIndicator,
             children: [
               OnBoardingPage(
                 image: TImages.tOnBoardingImage1,
@@ -37,10 +41,13 @@ class OnboardingScreen extends StatelessWidget {
           ),
 
           /// Skip Button
-          OnBoardingSkipButton(),
+          const OnBoardingSkipButton(),
 
           /// Dot nativagion SmoothPageIndicator
+          const OnBoardingDotNavigation(),
+
           /// Circular Button
+          const OnBoardingNextButton(),
         ],
       ),
     );
